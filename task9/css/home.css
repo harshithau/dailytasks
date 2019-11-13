@@ -1,0 +1,119 @@
+.navbar{
+	height: 30px;
+	background-color: gray;
+	margin: 20px;
+	padding: 10px;
+	padding-left: 90px;
+	margin-top:0px;
+	position: fixed;
+	width:1350px;
+}
+.about{
+	padding-left: 30px;
+}
+.contact{
+	padding-left: 30px;
+	padding-top: 300px;
+}
+.homeimg{
+	width:400;
+	height: 400px;
+	margin-top: 40px;
+}
+.content{
+	padding-left: 400px;
+	margin-top:-400px;
+	background-color: #778899 !important;
+}
+.img1{
+	width:180;
+	height: 180px;
+	margin-top: 90px;
+
+}
+.img2{
+	width:180;
+	height: 180px;
+	/*width:200;
+	height: 200px;*/
+}
+.img3{
+	width:180;
+	height: 180px;
+	/*width:200;
+	height: 200px;
+*/}
+.textarea{
+	
+	padding-left:0px;
+	margin-left: 70px;
+	margin-top:-1 0px;
+
+}
+.page3{
+	padding:10px;
+	margin:10px;
+	border:1px solid;
+	margin-left: 400px;
+	margin-right: 400px;
+	margin-top: -0px;
+	float:top;
+}
+.tab{
+	padding-top: 340px;
+
+}
+.para{
+	padding-top: 340px;
+
+}
+.form{
+	padding-left: 520px;
+}
+#submit{
+	padding-left: 70px;
+	padding-right: 70px;
+	margin-left: 80px;
+}
+.middle{
+	margin-left: 550px;
+	padding-top: 150px;
+
+}
+.form1{
+	padding-left: 25px;
+	margin: 5px;
+}
+.form2{
+	padding-left: 20px;
+	margin:5px;
+}
+.form3{
+	padding-left: 20px;
+	margin:5px;
+}
+.msg{
+	padding-bottom: 20px; 
+}
+
+.row{
+	margin-top: 40px;
+}
+.color{
+	background-color:#f0ffff;
+	margin-top:20px;
+}
+.tab1{
+	background-color: rgb(222,184,135);
+}
+.first{
+	background-color: #778899 !Important;
+}
+.time{
+	color:blue;
+}
+#time1{
+color:red;
+}
+
+	

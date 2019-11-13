@@ -1,0 +1,63 @@
+.container{
+	display: flex;
+	height: 40px;
+	background-color: green;
+	margin-top: -22px;
+}
+.home{
+	padding-left: 50px;
+	padding-top: 10px;
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+.about{
+	padding-left: 250px;
+	padding-top: 10px;
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+.product{
+	padding-left: 350px;
+	padding-top: 10px;
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+.contact{
+	padding-left: 400px;
+	padding-top: 10px;
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+h1{
+	background-color: #ffc34d;
+	padding-top: 30px;
+	margin-top: -10px;
+	padding-bottom: 30px;
+}
+.list{
+	display: flex;
+	padding-left: 130px;
+}
+img{
+	width:150px;
+	height: 80px;
+	margin-top: 20px;
+	padding-left: 190px;
+}
+.row1{
+	padding-left:90px;
+}
+ .row2{
+ 	padding-left:90px;
+ }
+ footer{
+	font-size: 20px;
+	background-color: green;
+	margin-top: 40px;
+	height: 35px;
+	margin-top:30px;
+}

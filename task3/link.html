@@ -1,0 +1,636 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en-US">
+<head>
+ <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<TITLE>
+How to use tables to structurize forms in HTML,
+and about alternatives, like FIELDSET
+</TITLE>
+<META NAME="description" CONTENT=
+"Notes on using tables in conjunction with forms in HTML.
+Often viewed as a layout tool, tables are more properly
+treated as a method for expressing structural relations.
+For example, tables can be used to indicate the relationships
+between input fields and their explanations within a form. This document
+discusses the technical details involved.">
+ <link rel="stylesheet" title="Yucca's style" href="../basic.css">
+<style type="text/css"><!--
+table pre { margin-bottom:0}
+form.tabular label { display: block; width: 6em; float: left; }
+--></style>
+</head>
+<body>
+
+<h1>
+How to use tables to structurize forms in HTML
+<small>and about alternatives, like <code>fieldset</code></small>
+</h1>
+<P CLASS="summary">
+Often viewed as a layout tool,
+<a href="../html/tables.html">tables</a>
+are more properly
+treated as a method for expressing structural relations.
+For example, tables can be used to indicate the relationships
+between input fields and their explanations
+within
+a&nbsp;<a href="index.html">form</a>.
+This document
+discusses the technical details involved.
+</P>
+
+<h2>Content</h2>
+
+<ul>
+<li><a href="#nesting">Tables, forms, and nesting them</a></li>
+<li><a href="#why"><em>Should</em> tables be used to structurize forms?</a></li>
+<li><a href="#example">An example</a></li>
+<li><a href="#notes">Notes</a>
+<ul>
+<li><a href="#large">Avoid too large tables</a></li>
+<li><a href="#align">Avoid <code>table align="left"</code>
+     (or <code>"right"</code>)</a></li>
+<li><a href="#button">Positioning the submit button</a></li>
+<li><a href="#th">Using table header cells</a></li>
+<li><a href="#present">Tuning the visual appearance</a>
+</ul>
+<li><a href="#br">An alternative: using just line breaks</a></li>
+<li><a href="#p">Another alternative: using paragraphs</a></li>
+<li><a href="#fieldset">Yet another alternative: <code>FIELDSET</code></a></li>
+<li><a href="#css">Using CSS to create tabular look</a></li>
+</ul>
+
+<h2><a name="nesting">Tables, forms, and nesting them</a></h2>
+
+<P>Tables and forms are separate concepts in HTML. People sometimes
+confuse them with each other. The conceptual confusion is often
+accompanied with confused <em>markup</em>.
+On the other hand, tables and forms <em>can</em> be "mixed" in a sense.
+Specifically, you can put a table inside a form or vice versa,
+and it is often useful to do so. But you need to understand
+what you are doing.
+</P><P>
+Tables and forms can be nested either way. But if you put
+<STRONG>forms into tables</STRONG>,
+<em>each</em> form must be completely included into a single table
+cell (one <code>TD</code> element in practice).
+Thereby the forms are each <em>completely independent</em>.
+See my <a href="choices.html">document on choices in HTML forms</a>
+for some simple examples.</P>
+<P>
+What people probably want to do more often is to nest
+them the other way: a <code>TABLE</code> element
+inside a <code>FORM</code> element. Then all
+form fields within the table cells, being in <code>TR</code>
+elements within the
+<code>TABLE</code> element which is within the
+<code>FORM</code> element, are fields of the <em>same</em>
+form.
+</P>
+<h2><a name="why"><em>Should</em> tables be used to structurize forms?</a></h2>
+<P>
+Whether it is useful to
+put the fields of a form into a table (within the <code>FORM</code>
+element)
+really depends on the form. For some odd reason,
+people who design HTML forms are often stuck with ideas of how
+forms are designed for
+<em>paper</em>. They put several unrelated questions
+to one row as if it were important to save paper. As a result,
+forms become harder to fill, since the intended
+<em>order</em> of filling it
+is not obvious. Rowwise or columnwise? Users may even fail to notice
+some questions. And having created a confused order, authors start
+wondering how to define
+<a href="tabbing.html">tabbing order</a> and things like that.
+</P><P>
+It is best to organize forms simply: don't use tables to force
+some particular <em>layout</em> but to indicate the <em>structure</em>
+when needed. Browsers are expected to present tables, and HTML documents
+in general, in a manner which corresponds to
+the structure expressed in HTML.
+</P>
+<P>To take a fairly common example: Assume that you wish to let the
+user pick up a product from a list in and order form. Probably the
+product information consists of some fields like product name,
+order number, and unit price for each product. This means that the
+data itself is inherently tabular. Why not make it table?
+That would make the appearance reflect the structure.
+There are some technicalities involved here; see
+<a href="choices.html#tabopt">notes on using checkboxes or radio
+buttons</a> (instead of <code>SELECT</code>) for such purposes.</p>
+
+
+<h2><a name="example">An example</a></h2>
+
+<P>
+As a <strong>simple example</strong>, consider the situation where
+some text (field
+label or something like that) is associated with an input field.
+(There are better ways for doing that in principle in
+<a href="../html4.html"
+title="A quick index to the HTML 4.0 specification"
+>HTML 4.0</a>,
+but currently the table idea might be better.) 
+You could set up a table where the first column contains the
+texts and the second column contains the corresponding
+input fields:
+<PRE><CODE>&lt;FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"&gt;
+&lt;TABLE BORDER="1"&gt;
+  &lt;TR&gt;
+    &lt;TD&gt;Your name&lt;/TD&gt;
+    &lt;TD&gt;
+      &lt;INPUT TYPE="TEXT" NAME="name" SIZE="20"&gt;
+    &lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+    &lt;TD&gt;Your E-mail address&lt;/TD&gt;
+    &lt;TD&gt;&lt;INPUT TYPE="TEXT" NAME="email" SIZE="25"&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+&lt;/TABLE&gt;
+&lt;P&gt;&lt;INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"&gt;&lt;/P&gt;
+&lt;/FORM&gt;</CODE></PRE>
+<P><strong>On your current browser</strong> with its current settings,
+this would appear as follows:
+<FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi">
+<TABLE BORDER="1">
+  <TR>
+    <TD>Your name</TD>
+    <TD>
+      <INPUT TYPE="TEXT" NAME="name" SIZE="20">
+    </TD>
+  </TR>
+  <TR>
+    <TD>Your E-mail address</TD>
+    <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25"></TD>
+  </TR>
+</TABLE>
+<P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"></P>
+</FORM>
+
+<p><small class="deem">The presentation can be affected by
+style sheets. In particular, this document comes with
+<a href="../basic.css">a style sheet</a>
+which makes some presentational suggestions, so presentation
+may differ from your browser's <em>usual</em> way of displaying
+forms. See the document <cite><a href=
+"present.html">Affecting the presentation of form fields on
+Web pages</a></cite>.</small></p> 
+
+<p>Another typical case for using a table is to
+organize a <strong>set of radio buttons</strong>.
+There is <a href="choices.html#assoc">an example</a> of this
+in
+<a href="choices.html"><cite>Choices
+in HTML forms</cite></a> as well as
+<a href="#fieldset-table">at the end of the current document</a>.</p>
+
+<h2><a name="notes">Notes</a></h2>
+
+<h3><a name="large">Avoid too large tables</a></h3>
+
+<P>Although this method can be used for a form with a large number
+of fields, a practical
+<em class="warning">word of warning</em> is in order: the larger a table
+is, the longer it takes from a browser to display it. (The browser has
+to process the entire table before displaying anything of it, since
+it must take all cells into account when selecting suitable column
+widths.) Perhaps you can divide the content of a form into major
+sections, with headings, and structurize each section separately as
+a small table.</P>
+
+<!--
+
+<h3><a name="align">Avoid <code>table align="left"</code>
+(or <code>"right"</code>)</a></h3>
+
+<p>Due to
+<a href="tabbug.html" title=
+"Description of a Netscape bug: table align=left confuses tabbing order"
+>a Netscape bug</a>, it is best to avoid using
+the <code>align="left"</code> attribute for a table containing
+form fields. The reason is that Netscape seems to skip forms fields
+inside such tables in the tabbing order!
+(<dfn><a href="tabbing.html">Tabbing order</a></dfn>
+is the order in which a browser traverses form fields and links
+on a page when the user presses the TAB key. It is an important
+useability and accessibility factor.)</p>
+
+<p>Using <code>table align="right"</code> has similar effect.</p>
+<p><small>With <code>align="center"</code> the situation seems to be different,
+but such attributes, as well as
+<code>&lt;center&gt;</code>
+markup, have varying effects on different browsers. The effects may even
+depend on the <code>DOCTYPE</code> declaration!
+Since centering tables properly using a style sheet does not work well
+on current browsers, it's perhaps best to avoid attempts to center tables.
+Maybe it is sufficient to suggest just some reasonable left margin,
+using a style sheet.</small></p>
+-->
+
+
+<h3><a name="button">Positioning the submit button</a></h3>
+<P>
+Notice that in our <a href="#example">example</a>
+the <strong>submit button</strong> is outside the table.
+The reason is that it has a different role than the other fields.
+It <em>could</em> be within the table too, but perhaps it is
+easier to find if it isn't. 
+</p><p>
+Also notice that
+contrary to popular
+belief among authors, a
+<a href="imagereset.html#need"><strong>reset
+button</strong></a> is not obligatory or even
+useful, as a rule. It is especially dangerous when presented
+alongside with a submit button!
+</P>
+<h3><a name="th">Using table header cells</a></h3>
+<p>
+Our example uses the <code>TD</code> (table data cell) element
+markup for all cells, both those containing form fields and those
+containing titles for fields. It might be more logical
+to regard the latter as <strong>headings</strong> and use the
+<code>TH</code> (table heading cell) markup. For example:
+</p>
+<PRE><CODE>  &lt;TR&gt;
+    &lt;TH&gt;Your name&lt;/TH&gt;
+    &lt;TD&gt;
+      &lt;INPUT TYPE="TEXT" NAME="name" SIZE="20"&gt;
+    &lt;/TD&gt;
+  &lt;/TR&gt;</CODE></PRE>
+
+<p>A typical presentation of <code>TH</code> elements uses
+more <em>emphatic</em> style than for <code>TD</code> cells,
+e.g. by using <strong>bold face</strong>.
+Moreover, by default the content of a heading cell is
+<em>centered</em> whereas normal cells are left-aligned;
+this can be affected by using the <code>ALIGN</code> attribute
+if desired.
+The following shows
+how <em>your</em> browser displays (perhaps affected by a style
+sheet suggested in this document)
+our sample form when <code>TH</code>
+markup is used for the texts which are logically field titles: 
+<FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi">
+<TABLE BORDER="1">
+  <TR>
+    <TH>Your name</TH>
+    <TD>
+      <INPUT TYPE="TEXT" NAME="name" SIZE="20">
+    </TD>
+  </TR>
+  <TR>
+    <TH>Your E-mail address</TH>
+    <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25"></TD>
+  </TR>
+</TABLE>
+<P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"></P>
+</FORM>
+
+<h3><a name="present">Tuning the visual appearance</a></h3>
+
+<p>When tables and forms are nested (either way), there is
+an especially large number of factors that affect the way the
+page looks like, such as
+<ul>
+  <li> differences between browsers and browser settings
+  <li> basic HTML markup, such as <a href="#th"><code>th</code>
+       vs. <code>td</code></a> (see above) 
+  <li> attributes in table-related tags, such as
+       <code>cellpadding</code> and <code>cellspacing</code>
+       in a <code>table</code> tag and <code>align</code> and
+       <code>valign</code> attributes in <code>td</code> and <code>th</code>
+       tags
+  <li> attributes in form markup (e.g. the <code>size</code> attribute
+       in <code>input</code> tags; note that the
+<a href="present.html#inputwidth">width of an input box
+       is <em>also</em> affected by the font in use</a>, perhaps in
+       a surprising way)
+  <li> style sheets, which can be used in quite a few ways, but often
+       with unwanted effects too, due to browser bugs.
+</ul>
+
+<p>The document <cite><a href=
+"present.html">Affecting the presentation of form fields on
+Web pages</a></cite> discusses the form-related issues in some details.
+For tables, see <a href="../HTML3.2/4.9.html"
+>section on tables</a> in my
+<a href="../HTML3.2/4.9.html"
+>material on HTML&nbsp;3.2</a> for basics, and e.g.
+section
+<cite><a href="http://www.idocs.com/tags/tables/"
+title="Mikodocs Guide to HTML: Tables"
+>Tables</a></cite>
+in <a href="http://www.idocs.com/">Mikodocs</a> for more advanced issues.</p>
+
+<table align="right" border="2"><tr><td bgcolor="#cccccc"><form
+action="http://jkorpela.fi/cgi-bin/echo.cgi">
+<input type="submit" name="submitname" value="Demo">
+</form></td></tr>
+</table>
+<p><a name="restr">As regards to issues specific to the <em>combination</em></a>
+of tables and forms, note that if you put a form into a table cell,
+then you there might be some unwanted
+<strong>extra vertical space</strong> below
+the form. There are various
+<a href="extraspace.html">ways to try to suppress that</a>.
+<strong>If there is only one form</strong> in the table, one of the ways is to
+<a href="#nesting">change the structure</a>
+so that the form and the table are nested the other way around:
+the form contains the table, even though only one cell contains
+fields of the form.
+Technically you'd just move the start and end tags of the form.
+This means something like the following
+(in a case where the form appears in the last cell of the table):</p>
+
+<table border="1">
+<tr><th>Unmodified markup</th> <th>Modified markup</th></tr>
+<tr>
+<td><pre>&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...&lt;/tr&gt;
+...
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...
+ &lt;td&gt;
+ <strong>&lt;form action="..."&gt;</strong>
+  &lt;input ...&gt;
+  &lt;input ...&gt;
+  ...
+ <strong>&lt;/form&gt;</strong>
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre></td>
+<td><pre><strong>&lt;form action="..."&gt;</strong>
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...&lt;/tr&gt;
+...
+&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;td&gt;...&lt;/td&gt;...
+ &lt;td&gt;
+  &lt;input ...&gt;
+  &lt;input ...&gt;
+  ...
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+<strong>&lt;/form&gt;</strong></pre></td></tr>
+</table>
+
+<p>The modified markup may look illogical, since structurally
+there is no need to have all the stuff in the other cells inside
+the form. But
+it can be done in valid HTML and with well-defined meaning: 
+when the form is submitted, only the form fields matter,
+so the other content in the form has no effect on how form submission works.
+And since the (probable) extra spacing after a form appears only after the
+entire table, the presentational problem is removed, or at least made
+less important.</p>
+
+<p>There are, however, the following problems with this approach,
+where the <code>form</code> element contains much more than
+what logically constitutes a form: A visual browser might have
+(e.g., due to a user style sheet) a special presentation for a form
+as a whole, e.g. using a distinctive background color or image to
+make the structure clear. When the markup is illogical, the user
+will be confused. Similarly, a speech-based user agent probably
+indicates the start of a form by saying, for example,
+"start of form 1". This is confusing, if the actual start of the
+form is far ahead.</p>
+
+<h2><a name="br">An alternative: using just line breaks</a></h2>
+<P>
+Of course, you could <strong>dispense with tables</strong> within forms.
+You could simply write e.g.
+<PRE><CODE>&lt;FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"&gt;
+Your name: &lt;INPUT TYPE="TEXT" NAME="name" SIZE="20"&gt;&lt;BR&gt;
+Your E-mail address:
+&lt;INPUT TYPE="TEXT" NAME="email" SIZE="25"&gt;&lt;BR&gt;
+&lt;INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"&gt;&lt;BR&gt;
+&lt;/FORM&gt;</CODE></PRE>
+<P><em>On your current browser</em> with its current settings,
+this would appear as follows:
+<FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi">
+Your name: <INPUT TYPE="TEXT" NAME="name" SIZE="20">
+<BR>
+Your E-mail address:
+<INPUT TYPE="TEXT" NAME="email" SIZE="25"><br>
+<INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1">
+</FORM>
+
+<P>The <code>BR</code> elements cause line breaks.
+It is largely a matter of taste whether you prefer this style to
+using tables. The main difference in typical presentation is that
+when using a table, the input fields "line up" forming a column.
+And style sheets or presentational attributes in table-related elements
+could be used to suggest the details of the presentation.
+</P>
+
+<h2><a name="p">Another alternative: using paragraphs</a></h2>
+
+<p>You could also make each pair of field title and
+field element into a separate paragraph, a <code>P</code> element, e.g.
+</p>
+<PRE><CODE>&lt;FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"&gt;
+&lt;P&gt;
+Your name: &lt;INPUT TYPE="TEXT" NAME="name" SIZE="20"&gt;
+&lt;/P&gt;
+&lt;P&gt;
+Your E-mail address:
+&lt;INPUT TYPE="TEXT" NAME="email" SIZE="25"&gt;
+&lt;/P&gt;
+&lt;P&gt;&lt;INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"&gt;&lt;/P&gt;
+&lt;/FORM&gt;</CODE></PRE>
+<P><em>On your current browser</em> with its current settings,
+this would appear as follows:
+<FORM METHOD="POST" ACTION="http://jkorpela.fi/cgi-bin/echo.cgi">
+<P>
+Your name: <INPUT TYPE="TEXT" NAME="name" SIZE="20">
+</P><P>
+Your E-mail address:
+<INPUT TYPE="TEXT" NAME="email" SIZE="25">
+</P>
+<P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"></P>
+</FORM>
+<p>Although some people might say this would be waste of
+space, the use of some empty vertical space (as caused
+by browsers' way of presenting paragraphs) isn't really wasteful.
+</P>
+<p>But since it might be argued that a field name and a field
+do not constitute a paragraph, you could alternatively use
+<code>DIV</code> elements instead of <code>P</code>&nbsp;elements.
+This would introduce no extra vertical spacing.</p>
+
+<h2><a name="fieldset">Yet another alternative: <code>FIELDSET</code></a></h2>
+
+<p>One way of structuring a form
+is the
+<a title="Description of FIELDSET in WDG's HTML 4.0 reference"
+href="http://www.htmlhelp.com/reference/html40/forms/fieldset.html">
+<code>FIELDSET</code> element</a>.
+
+<PRE><CODE CLASS="html">&lt;form method="post" action="http://jkorpela.fi/cgi-bin/echo.cgi"&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;Your name&lt;/legend&gt;
+  &lt;input type="text" name="name" size="20"&gt;
+&lt;/fieldset&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;Your E-mail address&lt;/legend&gt;
+  &lt;input type="text" name="email" size="25"&gt;
+&lt;/fieldset&gt;
+&lt;input type="submit" value="submit" name="b1"&gt;
+&lt;/form&gt;</CODE></PRE>
+
+<p>The following shows the presentation of the form on your current
+browser (on the left) and on IE 4 (on the right):</p>
+
+<table>
+<tr>
+<td valign="middle">
+<form method="post" action="http://jkorpela.fi/cgi-bin/echo.cgi">
+<div></div>
+<fieldset>
+  <legend>Your name</legend><p>
+  <input type="text" name="name" size="20">
+</p></fieldset>
+<fieldset>
+  <legend>Your E-mail address</legend><p>
+  <input type="text" name="email" size="25">
+</p></fieldset>
+<p><input type="submit" value="submit" name="b1"></P>
+</form>
+</td>
+<td valign="middle">
+<img src="fieldset.gif" width="253" height="152" border="1"
+title="IE 4.0 screen shot"
+alt=
+"[A presentation where the input fields appear in boxes of a special kind with the legends as headings over the top borders of the boxes.]"
+>
+</td>
+</table>
+
+<p><a name="fieldset-table">It is also possible to
+<strong>combine the use of <code>FIELDSET</code>
+with the use of a table</strong> to structurize e.g. a set of radio buttons.</a>
+For radio buttons, and for checkboxes, the conventional method is to
+put the associated text after the radio button or checkbox. This
+is somewhat illogical but so common that accessibility tools might
+handle it better than the logical order.
+Example:</p>
+<pre><code>&lt;FIELDSET&gt;&lt;LEGEND&gt;&lt;strong&gt;Gender&lt;/strong&gt;&lt;/LEGEND&gt;
+&lt;TABLE BORDER="1" CELLSPACING="0" CELLPADDING="5"&gt;
+&lt;TR&gt;&lt;TD&gt;
+&lt;LABEL&gt;&lt;INPUT TYPE="RADIO" NAME="gender" CHECKED
+VALUE="Unspecified"&gt;Unspecified
+&lt;/LABEL&gt;&lt;TD&gt;
+&lt;LABEL&gt;&lt;INPUT TYPE="RADIO" NAME="gender"
+VALUE="Female"&gt;Female&lt;/LABEL&gt;
+&lt;TD&gt;
+&lt;LABEL&gt;&lt;INPUT TYPE="RADIO" NAME="gender" VALUE="Male"&gt;Male&lt;/LABEL&gt;
+&lt;/TABLE&gt;
+&lt;/FIELDSET&gt;</code></pre>
+
+<p>This results in the following presentation on your current browser:
+<FORM ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"
+METHOD="POST">
+<FIELDSET><LEGEND><strong>Gender</strong></LEGEND>
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="5">
+<TR><TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender" CHECKED
+VALUE="Unspecified">Unspecified</LABEL>
+<TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender"
+VALUE="Female">Female</LABEL>
+<TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender" VALUE="Male">Male</LABEL>
+</TABLE>
+</FIELDSET>
+</FORM>
+
+<p>
+It would perhaps be better (in cases like this at least, when there is
+a small number of alternatives) if the
+legend
+(which is logically a heading for the set of radio buttons)
+appeared at the same line as the alternatives. But the syntax of
+<code>FIELDSET</code> makes this impossible: the first element there must
+be <code>LEGEND</code>, so one cannot organize the legend and the buttons with
+their labels as one row in a table.</p>
+
+<p>For accessibility reasons, and for clarity, it would be better to
+make each alternative appear on a line (row) of its own, using the
+same approach as above but a one-column table instead of a one-row
+table. Example:</p> 
+
+<FORM ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"
+METHOD="POST">
+<p>
+<FIELDSET><LEGEND><strong>Gender</strong></LEGEND>
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="5">
+<TR><TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender" CHECKED
+VALUE="Unspecified">Unspecified</LABEL>
+<tr><TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender"
+VALUE="Female">Female</LABEL>
+<tr><TD>
+<LABEL><INPUT TYPE="RADIO" NAME="gender" VALUE="Male">Male</LABEL>
+</TABLE>
+</FIELDSET>
+</FORM>
+
+<p>In this approach, on the other hand, the table markup is rather
+unnecessary. You could just wrap each <code>LABEL</code> element
+inside a <code>DIV</code> element.</p>
+
+<h2><a name="css">Using CSS to create tabular look</a></h2>
+
+<p>I have often argued that such a construct is a structural table (tabular data), not a layout table. It expresses the two-dimensional structure of the data in the form, including input fields. But many people disagree.
+Anyway, let's consider how you could achieve tabular layout for
+a form without using a table.</p>
+
+<p>There are different approaches, but a simple one is like this:
+In HTML, inside a <code>form</code> element, use
+something like
+
+<pre>
+&lt;div&gt;&lt;label for="a"&gt;a&lt;/label&gt;&lt;input id="a" name="x"&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for="b"&gt;abracadabra&lt;/label&gt;&lt;input id="b" name="y"&gt;&lt;/div&gt;
+<i>etc.</i>
+</pre>
+
+<p>This works without CSS, though not with a nice layout. For the layout, you could use CSS to suggest a common width for the <code>label</code> elements. This is guesswork to some extent, since you'd like to have width that is sufficient for all labels, but not wider than needed. Example:</p>
+
+<pre>
+label { display: block; width: 6em; float: left; }
+</pre>
+
+<p>This is how it looks like on your browser:</p>
+<FORM ACTION="http://jkorpela.fi/cgi-bin/echo.cgi"
+METHOD="POST" class="tabular">
+<div><label for="a">a</label><input id="a" name="x"></div>
+<div><label for="b">abracadabra</label><input id="b" name="y"></div>
+</form>
+
+<hr title="Information about this document">
+<div class="footer">
+<div><A TITLE=
+"ISO 8601, the date and time representation standard"
+HREF="../iso8601.html">
+Date</A> of last update: 2011-12-15.</div>
+<div>This page belongs to division
+<cite><a href="../www.html">Web authoring and surfing</a></cite>,
+subdivision
+<cite><a href="index.html"
+title=
+"How to write HTML forms; links to tutorials and references and documents on special topics related to forms"
+>Forms</a></cite> in
+the free information site
+<cite><a href="../indexen.html">IT and communication</a></cite>
+by
+<a href="../personal.html" title=
+"Jukka K. Korpela, an IT generalist and specialist (personal home page)"
+><span lang="fi">Jukka</span> "Yucca" <span lang="fi">Korpela</span></a>.
+</div></div>
+</body>
+</html>
+ 

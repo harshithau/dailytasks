@@ -1,0 +1,62 @@
+.logo{
+	border:1px solid black;
+	border-radius: 100px;
+	width:130px;
+	height:130px;
+}
+.col{
+	padding-left: 100px;
+}
+table{
+	background-color:darkgray;
+	height:20px;
+}
+.col1{
+	padding-left: 250px;
+}
+.col2{
+	padding-left: 330px;
+}
+.col3{
+	padding-left:320px;
+	margin-right: 40px;
+}
+.thirdpic{
+	width:200px;
+	height: 200px;
+	padding-left: 30px;
+	/*margin-bottom: 30px;
+	*/
+}
+.fourthpic{
+	width:200px;
+	height: 200px;
+	padding-left: 30px;
+	/*margin-bottom: 30px;
+*/
+}
+.secondpic{
+	width:200px;
+	height: 200px;
+	padding-left: 350px
+	
+	
+
+}
+footer{
+	padding-top: 30px;
+}
+.icon1
+{
+	float:right;
+}
+img
+{
+	width:50px;
+	height: 50px;
+	
+	
+}
+body{
+	background-color: #ff9999;
+}

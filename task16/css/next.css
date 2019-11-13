@@ -1,0 +1,41 @@
+.container1{
+	display: flex;
+
+	width:160px;
+	
+	justify-content: space-between;
+
+}
+	
+.border1{
+	border:1px solid black;
+	margin: 20px;
+	box-shadow: 5px 5px 5px gray;
+}	
+.border2{
+	border:1px solid black;
+	margin-bottom: 90px;
+	background-color: pink;
+	box-shadow: 5px 5px 5px gray;
+	margin-top: 20px;
+	
+
+}	
+.border11{
+	border:1px solid black;
+	margin: 20px;
+	background-color: pink;
+	margin-bottom: 90px;
+}	
+img{
+	width:160px;
+	height: 130px;
+}
+button{
+	margin:20px;
+	background-color: gray;
+}
+/*.clr{
+	
+	padding: 40px;
+}*/
